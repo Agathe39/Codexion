@@ -1,0 +1,17 @@
+
+.SILENT
+
+NAME = codexion
+FLAGS = -Wall -Wextra -Werror -pthread
+
+
+all : $(NAME)
+
+$(NAME):
+	cc $(FLAGS) src
+
+clean :
+
+fclean :
+
+re :
