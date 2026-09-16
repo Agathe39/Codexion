@@ -1,9 +1,9 @@
 
-.SILENT
+.SILENT :
 
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread
-
+FILES = *.c
 
 all : $(NAME)
 
@@ -14,4 +14,4 @@ clean :
 
 fclean :
 
-re :
+re : fclean all
