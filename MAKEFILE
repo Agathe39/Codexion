@@ -3,15 +3,34 @@
 
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread
-FILES = *.c
+C_FILES = src/main.c src/parsing.c src/initialisation.c
+ARGS = 4 400 50 50 50 2 0 fifo
+OBJS = $(C_FILES:.c=.o)
 
-all : $(NAME)
+. PHONY: all run clean fclean re help
 
-$(NAME):
-	cc $(FLAGS) src
+all: $(NAME)
 
-clean :
+$(NAME): $(OBJS)
+	cc $(FLAGS) $(OBJS) -o $(NAME)
 
-fclean :
+run: $(NAME)
+	./$(NAME) $(ARGS)
 
-re : fclean all
+%.o: %.c
+	cc $(FLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJS)
+
+fclean: clean
+	rm -rf a.out
+
+re: fclean all
+
+help:
+	echo "\nmake all -> creates *.o files if they don't exist yet, or rebuilds them if outdated, then compiles the program"
+	echo "make run -> execute the program using the latest version of *.o files"
+	echo "make clean -> delete *.o files"
+	echo "make fclean -> clean + deletes the executable file"
+	echo "make re -> fclean + all\n"
