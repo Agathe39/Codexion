@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/22 16:28:29 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/23 11:38:45 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,24 @@ typedef struct s_coder {
 
 } coder;
 
+typedef struct s_data {
+
+    coder *coders;
+    dungle *dungles;
+    int nbr_coders;
+    int nbr_compilation_required;
+    long time_to_burnout;
+    int stopped;
+    pthread_mutex_t stop_mutex;
+    pthread_mutex_t log_mutex;
+
+} data;
+
+
 int parsing(int nbr_arg, char **args);
 long calculate_time();
 struct s_coder *create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle *create_dungle(int nbr_dungle);
+int monitor_control(void *arg);
 
 #endif
