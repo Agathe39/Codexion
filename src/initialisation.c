@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/22 16:34:27 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/24 17:48:49 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pthread.h>
 
+
+struct s_data *recup_data(char *arg, struct s_coder **coder,
+	struct s_dungle **dungle)
+{
+	struct s_data *data;
+
+	data = malloc(sizeof(struct s_data) * 1);
+	if (!data)
+		return (NULL);
+
+	data->coders = *coder;
+	data->dungles = *dungle;
+	data->nbr_coders = atoi(arg[1]);
+	data->nbr_compilation_required = atoi(arg[6]);
+	data->time_to_burnout = atoi(arg[2]);
+	data->stopped = 0;
+	pthread_mutex_init(&data->stop_mutex, NULL);
+	pthread_mutex_init(&data->log_mutex, NULL);
+	pthread_mutex_init(&data->mutex_dungles, NULL);
+
+	return (data);
+}
 
 long calculate_time()
 {
@@ -51,12 +74,15 @@ struct s_dungle *create_dungle(int nbr_dungle)
 {
 	struct s_dungle *dungles;
 	dungles = malloc(sizeof(dungle) * nbr_dungle);
+	if (!dungles)
+		return (NULL);
+	
 	int i = 1;
 
 	while (i <= nbr_dungle)
 	{
 		dungles[i - 1].nbr = i;
-		dungles[i - 1].available = "True";
+		dungles[i - 1].available = 0;
 		i++;
 	}	
 	

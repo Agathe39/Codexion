@@ -115,3 +115,19 @@ Tant qu'aucun codeur n'a burnout et qu'ils n'ont pas tous effectué leur nombre 
    ├── destroy mutex
    ├── destroy conditions
    └── free mémoire
+
+
+
+- __Décider maintenant l'architecture des données__ : un mutex d'état (dongles + heap), une ou deux conditions, la structure « demande » pour la heap. Initialise-les (mêmes sans les utiliser).
+
+- __Écrire l'arbitre__ (heap + FIFO/EDF) comme une fonction autonome : on lui donne l'état, elle répond « qui est le prochain ». C'est testable isolément, sans threads.
+
+- __Écrire la routine du coder__ en l'appuyant sur l'arbitre, avec un __stub d'attente__ (`usleep` en boucle pour commencer).
+
+- __Tester__ : un seul coder, puis deux, puis trois. Vérifier les transitions et les logs.
+
+- __Remplacer le stub d'attente__ par les vraies conditions (wait/signal/broadcast), en réutilisant l'expression que tu testais déjà dans ta boucle.
+
+- __Brancher l'arrêt__ : le moniteur lève `stopped` + `broadcast`, les coders réveillés sortent.
+
+- __Nettoyage final__ : destroy des mutex/cond, free, après les `join`.
