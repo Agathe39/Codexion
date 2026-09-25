@@ -6,13 +6,11 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:13:01 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/25 16:23:07 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/25 16:46:22 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
+#include "codexion.h"
 
 int	ft_len(char *str)
 {

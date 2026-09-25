@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/25 16:38:05 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/25 17:02:26 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define CODEXION_H
 # include <unistd.h>
 # include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+# include <string.h>
 
 typedef struct s_dungle
 {
@@ -50,5 +54,7 @@ long			calculate_time(void);
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
+struct s_data	*recup_data(char *arg, struct s_coder **coder,
+					struct s_dungle **dungle);
 
 #endif

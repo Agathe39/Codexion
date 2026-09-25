@@ -6,14 +6,11 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/09/25 16:36:31 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/25 17:06:58 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
 
 int	main(int argc, char **argv)
 {
@@ -37,7 +34,7 @@ int	main(int argc, char **argv)
 		printf("%s", "ERROR: coders structure can't be initialised\n");
 		return (0);
 	}
-	data = recup_data(argv, &coders, &dungles);
+	data = recup_data(*argv, &coders, &dungles);
 	if (data == NULL)
 	{
 		printf("%s", "ERROR: data structure can't be initialised\n");
