@@ -28,7 +28,7 @@ THREAD CODER
     - créer une heap de codeurs en demande de dungle
     - le scheduler décide lequel est prioritaire avec FIFO ou EDF
     - le codeur choisi essai de prendre 2 dungles:
-        -> possible : il compile 
+        -> possible : il compile
         -> impossible : il attend
 
 Tant qu'aucun codeur n'a burnout et qu'ils n'ont pas tous effectué leur nombre de compilation requis:
@@ -131,3 +131,7 @@ Tant qu'aucun codeur n'a burnout et qu'ils n'ont pas tous effectué leur nombre 
 - __Brancher l'arrêt__ : le moniteur lève `stopped` + `broadcast`, les coders réveillés sortent.
 
 - __Nettoyage final__ : destroy des mutex/cond, free, après les `join`.
+
+
+Prochain point:
+   - creer la routine des codeurs pour pouvoir activer leur thread.
