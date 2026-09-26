@@ -135,3 +135,7 @@ Tant qu'aucun codeur n'a burnout et qu'ils n'ont pas tous effectué leur nombre 
 
 Prochain point:
    - creer la routine des codeurs pour pouvoir activer leur thread.
+      - demande dans la heap
+      - si demande acceptée -> compile
+      - debug
+      - refactor
