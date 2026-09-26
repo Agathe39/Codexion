@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 15:07:39 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 17:25:39 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	mutex_dungles;
 	pthread_cond_t	cond;
+	char			*algo_choice;
 }	t_data;
 
 int				parsing(int nbr_arg, char **args);
@@ -69,7 +70,8 @@ long			calculate_time(void);
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
-struct s_data	*recup_data(char *arg, struct s_coder **coder,
+struct s_data	*recup_data(char **arg, struct s_coder **coder,
 					struct s_dungle **dungle);
+struct s_coder  *algorithm(struct s_data	*data);
 
 #endif

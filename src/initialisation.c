@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 15:19:31 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 16:10:31 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ struct s_heap	*creat_heap(int nbr_coders)
 	return (heap);
 }
 
-struct s_data	*recup_data(char *arg, struct s_coder **coder,
+struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	struct s_dungle **dungle)
 {
 	struct s_data	*data;
@@ -36,15 +36,16 @@ struct s_data	*recup_data(char *arg, struct s_coder **coder,
 		return (NULL);
 	data->coders = *coder;
 	data->dungles = *dungle;
-	data->heap = creat_heap(atoi(&arg[1]));
-	data->nbr_coders = atoi(&arg[1]);
-	data->nbr_compilation_required = atoi(&arg[6]);
-	data->time_to_burnout = atoi(&arg[2]);
+	data->heap = creat_heap(atoi(arg[1]));
+	data->nbr_coders = atoi(arg[1]);
+	data->nbr_compilation_required = atoi(arg[6]);
+	data->time_to_burnout = atoi(arg[2]);
 	data->stopped = 0;
 	pthread_mutex_init(&data->stop_mutex, NULL);
 	pthread_mutex_init(&data->log_mutex, NULL);
 	pthread_mutex_init(&data->mutex_dungles, NULL);
 	pthread_cond_init(&data->cond, NULL);
+	data->algo_choice = arg[8];
 
 	return (data);
 }

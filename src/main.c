@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/09/26 15:15:01 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 18:10:59 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	struct s_coder	*coders;
+	struct s_coder	*chosen;
 	struct s_dungle	*dungles;
 	struct s_data	*data;
 	pthread_t		monitor;
@@ -34,12 +35,14 @@ int	main(int argc, char **argv)
 		printf("%s", "ERROR: coders structure can't be initialised\n");
 		return (0);
 	}
-	data = recup_data(*argv, &coders, &dungles);
+	data = recup_data(argv, &coders, &dungles);
 	if (data == NULL)
 	{
 		printf("%s", "ERROR: data structure can't be initialised\n");
 		return (0);
 	}
+	
+	// TEST ARGV
 	i = 0;
 	while (i < atoi(argv[1]))
 	{
@@ -52,6 +55,23 @@ int	main(int argc, char **argv)
 		printf("%s", "\n\n");
 		i++;
 	}
+	//
+
+	// TEST algorithm
+	data->heap->asks[0].coder_id = 2;
+	data->heap->asks[0].arrival_time = 100;
+	data->heap->asks[0].deadline = 900;
+
+	data->heap->asks[1].coder_id = 3;
+	data->heap->asks[1].arrival_time = 200;
+	data->heap->asks[1].deadline = 500;
+
+	data->heap->size = 2;
+
+	chosen = algorithm(data);
+	printf("chosen coder = %d\n", chosen->id);
+
+	//
 	pthread_create(&monitor, NULL, &monitor_control, data);
 	pthread_join(monitor, NULL);
 	pthread_mutex_destroy(&data->stop_mutex);
