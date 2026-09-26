@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/09/25 17:06:58 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/26 15:15:01 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < atoi(argv[1]))
 	{
-		printf("%d%c", coders[i].id, '\n');
-		printf("%ld%c", coders[i].last_compile_start, '\n');
-		printf("%d%c", coders[i].nbr_compiles, '\n');
-		printf("%d%c", coders[i].dungle_left->nbr, '\n');
-		printf("%d%c", coders[i].dungle_right->nbr, '\n');
-		printf("%s%c", coders[i].state, '\n');
+		printf("id: %d%c", coders[i].id, '\n');
+		printf("last compile strat : %ld%c", coders[i].last_compile_start, '\n');
+		printf("nbr compilation: %d%c", coders[i].nbr_compiles, '\n');
+		printf("dungle left: %d%c", coders[i].dungle_left->nbr, '\n');
+		printf("dungle right: %d%c", coders[i].dungle_right->nbr, '\n');
+		printf("coder state: %s%c", coders[i].state, '\n');
 		printf("%s", "\n\n");
 		i++;
 	}
@@ -57,5 +57,6 @@ int	main(int argc, char **argv)
 	pthread_mutex_destroy(&data->stop_mutex);
 	pthread_mutex_destroy(&data->log_mutex);
 	pthread_mutex_destroy(&data->mutex_dungles);
+	pthread_cond_destroy(&data->cond);
 	return (0);
 }

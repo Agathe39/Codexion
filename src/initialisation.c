@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/25 17:01:16 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/26 15:19:31 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+
+struct s_heap	*creat_heap(int nbr_coders)
+{
+	struct s_heap	*heap;
+
+	heap = malloc(sizeof(struct s_heap) * 1);
+	if (!heap)
+		return (NULL);
+	heap->asks = malloc(sizeof(struct s_ask) * nbr_coders);
+	heap->size = 0;
+
+	return (heap);
+}
 
 struct s_data	*recup_data(char *arg, struct s_coder **coder,
 	struct s_dungle **dungle)
@@ -22,6 +36,7 @@ struct s_data	*recup_data(char *arg, struct s_coder **coder,
 		return (NULL);
 	data->coders = *coder;
 	data->dungles = *dungle;
+	data->heap = creat_heap(atoi(&arg[1]));
 	data->nbr_coders = atoi(&arg[1]);
 	data->nbr_compilation_required = atoi(&arg[6]);
 	data->time_to_burnout = atoi(&arg[2]);
@@ -29,6 +44,8 @@ struct s_data	*recup_data(char *arg, struct s_coder **coder,
 	pthread_mutex_init(&data->stop_mutex, NULL);
 	pthread_mutex_init(&data->log_mutex, NULL);
 	pthread_mutex_init(&data->mutex_dungles, NULL);
+	pthread_cond_init(&data->cond, NULL);
+
 	return (data);
 }
 

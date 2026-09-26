@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/25 17:02:26 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/09/26 15:07:39 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@
 # include <stdlib.h>
 # include <time.h>
 # include <string.h>
+
+typedef struct s_ask
+{
+	int		coder_id;
+	long	arrival_time;
+	long	deadline;
+}	t_ask;
+
+typedef struct s_heap
+{
+	t_ask	*asks;
+	int		size;
+}	t_heap;
 
 typedef struct s_dungle
 {
@@ -40,6 +53,7 @@ typedef struct s_data
 {
 	t_coder			*coders;
 	t_dungle		*dungles;
+	t_heap			*heap;
 	int				nbr_coders;
 	int				nbr_compilation_required;
 	long			time_to_burnout;
@@ -47,6 +61,7 @@ typedef struct s_data
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	mutex_dungles;
+	pthread_cond_t	cond;
 }	t_data;
 
 int				parsing(int nbr_arg, char **args);
