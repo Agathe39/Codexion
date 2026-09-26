@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 16:10:31 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 18:53:06 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	data->stopped = 0;
 	pthread_mutex_init(&data->stop_mutex, NULL);
 	pthread_mutex_init(&data->log_mutex, NULL);
-	pthread_mutex_init(&data->mutex_dungles, NULL);
+	pthread_mutex_init(&data->mutex_ask, NULL);
 	pthread_cond_init(&data->cond, NULL);
 	data->algo_choice = arg[8];
 

@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 17:25:39 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 18:53:17 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_data
 	int				stopped;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	log_mutex;
-	pthread_mutex_t	mutex_dungles;
+	pthread_mutex_t	mutex_ask;
 	pthread_cond_t	cond;
 	char			*algo_choice;
 }	t_data;
@@ -72,6 +72,7 @@ struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
 struct s_data	*recup_data(char **arg, struct s_coder **coder,
 					struct s_dungle **dungle);
-struct s_coder  *algorithm(struct s_data	*data);
+struct s_coder  *algorithm(struct s_data *data);
+void    		coder_routine(struct s_coder *coder, struct s_data *data);
 
 #endif

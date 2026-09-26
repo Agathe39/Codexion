@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/09/26 18:10:59 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/26 18:53:32 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv)
 	pthread_join(monitor, NULL);
 	pthread_mutex_destroy(&data->stop_mutex);
 	pthread_mutex_destroy(&data->log_mutex);
-	pthread_mutex_destroy(&data->mutex_dungles);
+	pthread_mutex_destroy(&data->mutex_ask);
 	pthread_cond_destroy(&data->cond);
 	return (0);
 }
