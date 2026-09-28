@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 16:16:26 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 18:09:36 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/28 14:37:31 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 struct s_coder  *search_coder(int coder_id, struct s_coder *coders, int nbr_coders)
 {
-    int             i;
+    int i;
 
     i = 0;
     while(i < nbr_coders)

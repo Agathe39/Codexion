@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 19:03:13 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/28 14:43:23 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@ void    ask_to_compile(struct s_coder *coder, struct s_data *data)
 
 void    coder_routine(struct s_coder *coder, struct s_data *data)
 {
+    struct s_coder *coder_choice;
+    
     ask_to_compile(coder, data);
+    coder_choice = algorithm(data);
+    
+    if ((coder->id == coder_choice->id) and (coder->dungle_right->available == 0 and coder->dungle_left->available == 0))
+        continue;
 }
