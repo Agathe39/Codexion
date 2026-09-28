@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 18:53:17 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/28 17:05:10 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 					struct s_dungle **dungle);
 struct s_coder  *algorithm(struct s_data *data);
 void    		coder_routine(struct s_coder *coder, struct s_data *data);
+void    		delete_ask(struct s_coder *coder, struct s_data *data);
 
 #endif

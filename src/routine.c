@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/28 14:43:23 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/28 17:25:37 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,43 @@ void    ask_to_compile(struct s_coder *coder, struct s_data *data)
     pthread_mutex_unlock(&data->mutex_ask);
 }
 
+void    compile(struct s_coder *coder, struct s_data *data)
+{
+    
+}
+
+void    debug(struct s_coder *coder)
+{
+    
+}
+
+void    refactor(struct s_coder *coder)
+{
+    
+}
+
 void    coder_routine(struct s_coder *coder, struct s_data *data)
 {
-    struct s_coder *coder_choice;
+    // struct s_coder *coder_choice;
     
     ask_to_compile(coder, data);
-    coder_choice = algorithm(data);
+    // coder_choice = ;
+    // if (!coder_choice)
+    //     return (NULL);
     
-    if ((coder->id == coder_choice->id) and (coder->dungle_right->available == 0 and coder->dungle_left->available == 0))
-        continue;
+    pthread_mutex_lock(&data->mutex_ask);
+    while (algorithm(data) != coder || (coder->dungle_right->available == 1 || coder->dungle_left->available == 1))
+        pthread_cond_wait(&data->cond, &data->mutex_ask);
+        //coder en wait  
+
+    delete_ask(coder, data);
+    pthread_mutex_unlock(&data->mutex_ask);
+
+    compile(coder, data);
+    debug(coder);
+    refactor(coder);
+
+    pthread_mutex_lock(&data->mutex_ask);
+    //libérer les dungles
+    pthread_mutex_unlock(&data->mutex_ask);
 }
