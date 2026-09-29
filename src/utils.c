@@ -6,11 +6,46 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/28 17:20:51 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/29 17:55:25 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	ft_sleep_ms(long ms)
+{
+	struct timespec	ts;
+
+	if (ms <= 0)
+		return ;
+	ts.tv_sec = ms / 1000;
+	ts.tv_nsec = (ms % 1000) * 1000000;
+	nanosleep(&ts, NULL);
+}
+
+void    let_dungles(struct s_coder *coder, struct s_data *data)
+{
+    long    time;
+
+    time = calculate_time();
+    ft_sleep_ms(data->dungle_cooldown);
+    
+    pthread_mutex_lock(&data->mutex_ask);    
+    coder->dungle_left->available = 0;
+    coder->dungle_right->available = 0;
+    pthread_cond_broadcast(&data->cond);
+    pthread_mutex_unlock(&data->mutex_ask);
+}
+
+void    take_dungles(struct s_coder *coder,  struct s_data *data)
+{
+    pthread_mutex_lock(&data->log_mutex);
+    coder->dungle_left->available = 1;
+    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
+    coder->dungle_right->available = 1;
+    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
+    pthread_mutex_unlock(&data->log_mutex);
+}
 
 void    delete_ask(struct s_coder *coder, struct s_data *data)
 {
@@ -26,8 +61,8 @@ void    delete_ask(struct s_coder *coder, struct s_data *data)
         i++;
     }
     if (i == size)
-        return (NULL);
-    while (i < size)
+        return;
+    while (i < size - 1)
     {
         data->heap->asks[i] = data->heap->asks[i + 1];
         i++;

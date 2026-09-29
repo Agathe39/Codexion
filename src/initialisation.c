@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 18:53:06 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/29 18:09:10 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	data->dungles = *dungle;
 	data->heap = creat_heap(atoi(arg[1]));
 	data->nbr_coders = atoi(arg[1]);
-	data->nbr_compilation_required = atoi(arg[6]);
 	data->time_to_burnout = atoi(arg[2]);
+	data->time_to_compile = atoi(arg[3]);
+	data->time_to_debug = atoi(arg[4]);
+	data->time_to_refactor = atoi(arg[5]);
+	data->nbr_compilation_required = atoi(arg[6]);
+	data->dungle_cooldown = atoi(arg[7]);
 	data->stopped = 0;
 	pthread_mutex_init(&data->stop_mutex, NULL);
 	pthread_mutex_init(&data->log_mutex, NULL);
@@ -74,7 +78,6 @@ struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles)
 		coders[i - 1].nbr_compiles = 0;
 		coders[i - 1].dungle_left = &dongles[i - 1];
 		coders[i - 1].dungle_right = &dongles[(i - 2 + nbr_coder) % nbr_coder];
-		coders[i - 1].state = "wait";
 		i++;
 	}
 	return (coders);

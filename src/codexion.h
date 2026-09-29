@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/28 17:05:10 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/29 18:09:00 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_coder
 	int			nbr_compiles;
 	t_dungle	*dungle_right;
 	t_dungle	*dungle_left;
-	char		*state;
 	pthread_t	thread;
 }	t_coder;
 
@@ -55,8 +54,12 @@ typedef struct s_data
 	t_dungle		*dungles;
 	t_heap			*heap;
 	int				nbr_coders;
-	int				nbr_compilation_required;
 	long			time_to_burnout;
+	long			time_to_compile;
+	long			time_to_debug;
+	long			time_to_refactor;
+	int				nbr_compilation_required;
+	long			dungle_cooldown;
 	int				stopped;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	log_mutex;
@@ -75,5 +78,8 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 struct s_coder  *algorithm(struct s_data *data);
 void    		coder_routine(struct s_coder *coder, struct s_data *data);
 void    		delete_ask(struct s_coder *coder, struct s_data *data);
+void    		take_dungles(struct s_coder *coder, struct s_data *data);
+void    		let_dungles(struct s_coder *coder, struct s_data *data);
+void			ft_sleep_ms(long ms);
 
 #endif

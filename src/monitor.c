@@ -6,19 +6,21 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/26 16:14:35 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/29 18:25:02 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	verif_burn_out(int i, int time, t_data *d)
+int	verif_burn_out(int i, long time, t_data *d)
 {
 	if ((time - d->coders[i].last_compile_start) >= d->time_to_burnout)
 	{
-		pthread_mutex_lock(&d->stop_mutex);
+		pthread_mutex_lock(&d->mutex_ask);
 		d->stopped = 1;
-		pthread_mutex_unlock(&d->stop_mutex);
+		pthread_cond_broadcast(&d->cond);
+		pthread_mutex_unlock(&d->mutex_ask);
+		
 		pthread_mutex_lock(&d->log_mutex);
 		printf("%d %d burned out\n", time, d->coders[i].id);
 		pthread_mutex_unlock(&d->log_mutex);
@@ -35,11 +37,12 @@ void	*monitor_control(void *arg)
 	long int	time;
 
 	d = (t_data *)arg;
-	while (1)
+	while (!d->stopped)
 	{
 		i = 0;
 		compile = 0;
 		time = calculate_time();
+		pthread_mutex_lock(&d->mutex_ask);
 		while (i < d->nbr_coders)
 		{
 			if (d->coders[i].nbr_compiles >= d->nbr_compilation_required)
@@ -49,8 +52,14 @@ void	*monitor_control(void *arg)
 			i++;
 		}
 		if (compile >= d->nbr_coders)
-			return (NULL);
-		sleep(1000);
+		{
+			d->stopped = 1;
+			pthread_cond_broadcast(&d->cond);
+			pthread_mutex_unlock(&d->mutex_ask);
+			return;
+		}
+			
+		ft_sleep_ms(1);
 	}
-	return (0);
+	return;
 }

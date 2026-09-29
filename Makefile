@@ -8,7 +8,7 @@ C_FILES = src/main.c src/parsing.c src/initialisation.c src/monitor.c \
 ARGS = 4 400 50 50 50 2 10 edf
 OBJS = $(C_FILES:.c=.o)
 
-. PHONY: all run clean fclean re help
+.PHONY: all run clean fclean re help
 
 all: $(NAME)
 
