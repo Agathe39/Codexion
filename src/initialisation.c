@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/29 18:09:10 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/30 19:50:54 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ struct s_heap	*creat_heap(int nbr_coders)
 	if (!heap)
 		return (NULL);
 	heap->asks = malloc(sizeof(struct s_ask) * nbr_coders);
+	if (!heap->asks)
+		return (NULL);
 	heap->size = 0;
 
 	return (heap);
@@ -30,7 +32,9 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	struct s_dungle **dungle)
 {
 	struct s_data	*data;
+	int				i;
 
+	i = 0;
 	data = malloc(sizeof(struct s_data) * 1);
 	if (!data)
 		return (NULL);
@@ -45,12 +49,15 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	data->nbr_compilation_required = atoi(arg[6]);
 	data->dungle_cooldown = atoi(arg[7]);
 	data->stopped = 0;
-	pthread_mutex_init(&data->stop_mutex, NULL);
 	pthread_mutex_init(&data->log_mutex, NULL);
 	pthread_mutex_init(&data->mutex_ask, NULL);
 	pthread_cond_init(&data->cond, NULL);
 	data->algo_choice = arg[8];
-
+	while (i < data->nbr_coders)
+	{
+		data->coders[i].data = data;
+		i++;
+	}
 	return (data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/29 17:55:25 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/30 10:27:19 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	ft_sleep_ms(long ms)
 
 void    let_dungles(struct s_coder *coder, struct s_data *data)
 {
-    long    time;
-
-    time = calculate_time();
     ft_sleep_ms(data->dungle_cooldown);
     
     pthread_mutex_lock(&data->mutex_ask);    
@@ -39,10 +36,12 @@ void    let_dungles(struct s_coder *coder, struct s_data *data)
 
 void    take_dungles(struct s_coder *coder,  struct s_data *data)
 {
-    pthread_mutex_lock(&data->log_mutex);
+    
     coder->dungle_left->available = 1;
-    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
     coder->dungle_right->available = 1;
+
+    pthread_mutex_lock(&data->log_mutex);
+    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
     printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
     pthread_mutex_unlock(&data->log_mutex);
 }

@@ -4,8 +4,8 @@
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread -D_POSIX_C_SOURCE=199309L
 C_FILES = src/main.c src/parsing.c src/initialisation.c src/monitor.c \
-		  src/algorithm.c src/routine.c src/utils.c
-ARGS = 4 400 50 50 50 2 10 edf
+		  src/algorithm.c src/routine.c src/utils.c src/thread.c
+ARGS = 4 800 50 50 50 2 10 edf
 OBJS = $(C_FILES:.c=.o)
 
 .PHONY: all run clean fclean re help
@@ -25,7 +25,7 @@ clean:
 	rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf a.out
+	rm -rf $(NAME)
 
 re: fclean all
 

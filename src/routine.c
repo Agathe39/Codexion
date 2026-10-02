@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/29 18:20:47 by agathe           ###   ########.fr       */
+/*   Updated: 2026/09/30 19:48:23 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,39 @@ void    refactor(struct s_coder *coder, struct s_data *data)
     ft_sleep_ms(data->time_to_refactor);
 }
 
-void    coder_routine(struct s_coder *coder, struct s_data *data)
-{
-    // if (coder->nbr_compiles == data->nbr_compilation_required)
-    //     data->stopped = 1;
-    
-    ask_to_compile(coder, data);
-    
-    pthread_mutex_lock(&data->mutex_ask);
+void    *coder_routine(void *arg)
+{   
+    struct s_coder  *coder;
+    struct s_data   *data;
 
-    while (algorithm(data) != coder || (coder->dungle_right->available == 1 || coder->dungle_left->available == 1) || data->stopped)
-        pthread_cond_wait(&data->cond, &data->mutex_ask);
+    coder = (t_coder *)arg;
+    data = coder->data;
 
-    if (data->stopped)
+    while (coder->nbr_compiles < data->nbr_compilation_required)
     {
+        ask_to_compile(coder, data);
+    
+        pthread_mutex_lock(&data->mutex_ask);
+
+        while (algorithm(data) != coder || (coder->dungle_right->available == 1 || coder->dungle_left->available == 1) || data->stopped)
+            pthread_cond_wait(&data->cond, &data->mutex_ask);
+
+        if (data->stopped)
+        {
+            delete_ask(coder, data);
+            pthread_mutex_unlock(&data->mutex_ask);
+            return (NULL);
+        }
+
         delete_ask(coder, data);
+        take_dungles(coder, data);
+
         pthread_mutex_unlock(&data->mutex_ask);
-        return;
+
+        compile(coder, data);
+        let_dungles(coder, data);
+        debug(coder, data);
+        refactor(coder, data);
     }
-
-    delete_ask(coder, data);
-    take_dungles(coder, data);
-
-    pthread_mutex_unlock(&data->mutex_ask);
-
-    compile(coder, data);
-    let_dungles(coder, data);
-    debug(coder, data);
-    refactor(coder, data);
+    return (NULL);
 }
