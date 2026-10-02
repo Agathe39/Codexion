@@ -2,10 +2,10 @@
 .SILENT :
 
 NAME = codexion
-FLAGS = -Wall -Wextra -Werror -pthread -D_POSIX_C_SOURCE=199309L
+FLAGS = -Wall -Wextra -Werror -pthread
 C_FILES = src/main.c src/parsing.c src/initialisation.c src/monitor.c \
 		  src/algorithm.c src/routine.c src/utils.c src/thread.c
-ARGS = 4 800 50 50 50 2 10 edf
+ARGS = 1 800 50 50 50 2 10 fifo
 OBJS = $(C_FILES:.c=.o)
 
 .PHONY: all run clean fclean re help

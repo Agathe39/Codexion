@@ -38,6 +38,7 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	data = malloc(sizeof(struct s_data) * 1);
 	if (!data)
 		return (NULL);
+	data->start_time = now_ms();
 	data->coders = *coder;
 	data->dungles = *dungle;
 	data->heap = creat_heap(atoi(arg[1]));
@@ -56,17 +57,15 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	while (i < data->nbr_coders)
 	{
 		data->coders[i].data = data;
+		data->coders[i].last_compile_start = calculate_time(data);
 		i++;
 	}
 	return (data);
 }
 
-long	calculate_time(void)
+long	calculate_time(struct s_data *data)
 {
-	struct timespec	ts;
-
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+	return (now_ms() - data->start_time);
 }
 
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles)
@@ -81,7 +80,6 @@ struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles)
 	while (i <= nbr_coder)
 	{
 		coders[i - 1].id = i;
-		coders[i - 1].last_compile_start = calculate_time();
 		coders[i - 1].nbr_compiles = 0;
 		coders[i - 1].dungle_left = &dongles[i - 1];
 		coders[i - 1].dungle_right = &dongles[(i - 2 + nbr_coder) % nbr_coder];

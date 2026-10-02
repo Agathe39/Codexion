@@ -39,7 +39,7 @@ void	*monitor_control(void *arg)
 	{
 		i = 0;
 		compile = 0;
-		time = calculate_time();
+		time = calculate_time(d);
 		pthread_mutex_lock(&d->mutex_ask);
 		while (i < d->nbr_coders)
 		{

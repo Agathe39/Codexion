@@ -12,6 +12,14 @@
 
 #include "codexion.h"
 
+long	now_ms(void)
+{
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
+}
+
 void	ft_sleep_ms(long ms)
 {
 	struct timespec	ts;
@@ -41,8 +49,8 @@ void    take_dungles(struct s_coder *coder,  struct s_data *data)
     coder->dungle_right->available = 1;
 
     pthread_mutex_lock(&data->log_mutex);
-    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
-    printf("%ld %d %s\n", calculate_time(), coder->id, "has taken a dungle");
+    printf("%ld %d %s\n", calculate_time(data), coder->id, "has taken a dungle");
+    printf("%ld %d %s\n", calculate_time(data), coder->id, "has taken a dungle");
     pthread_mutex_unlock(&data->log_mutex);
 }
 

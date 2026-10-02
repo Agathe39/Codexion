@@ -50,6 +50,7 @@ typedef struct s_data
 	long			time_to_refactor;
 	int				nbr_compilation_required;
 	long			dungle_cooldown;
+	long			start_time;
 	int				stopped;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	mutex_ask;
@@ -69,7 +70,8 @@ typedef struct s_coder
 }	t_coder;
 
 int				parsing(int nbr_arg, char **args);
-long			calculate_time(void);
+long			calculate_time(struct s_data *data);
+long			now_ms(void);
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
