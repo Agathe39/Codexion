@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 16:16:26 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 15:53:51 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/05 16:36:44 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ struct s_coder	*algorithm(struct s_data *data)
 		coder_id = use_fifo(data);
 	else
 		coder_id = use_edf(data);
-
 	coder = search_coder(coder_id, data->coders, data->nbr_coders);
-
 	return (coder);
 }

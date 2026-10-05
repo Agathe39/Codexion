@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 15:57:17 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/05 16:40:51 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	*monitor_control(void *arg)
 				pthread_mutex_unlock(&d->mutex_ask);
 				return (NULL);
 			}
-
 			i++;
 		}
 		if (compile >= d->nbr_coders)

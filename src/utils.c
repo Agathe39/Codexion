@@ -6,35 +6,15 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 16:05:42 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/05 16:40:17 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-long	now_ms(void)
-{
-	struct timespec	ts;
-
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (ts.tv_sec * 1000 + ts.tv_nsec / 1000000);
-}
-
-void	ft_sleep_ms(long ms)
-{
-	struct timespec	ts;
-
-	if (ms <= 0)
-		return ;
-	ts.tv_sec = ms / 1000;
-	ts.tv_nsec = (ms % 1000) * 1000000;
-	nanosleep(&ts, NULL);
-}
-
 void	let_dungles(struct s_coder *coder, struct s_data *data)
 {
 	ft_sleep_ms(data->dungle_cooldown);
-
 	pthread_mutex_lock(&data->mutex_ask);
 	coder->dungle_left->available = 0;
 	coder->dungle_right->available = 0;
@@ -42,12 +22,10 @@ void	let_dungles(struct s_coder *coder, struct s_data *data)
 	pthread_mutex_unlock(&data->mutex_ask);
 }
 
-void	take_dungles(struct s_coder *coder,  struct s_data *data)
+void	take_dungles(struct s_coder *coder, struct s_data *data)
 {
-
 	coder->dungle_left->available = 1;
 	coder->dungle_right->available = 1;
-
 	pthread_mutex_lock(&data->log_mutex);
 	printf("%ld %d %s\n", calculate_time(data), coder->id,
 		"has taken a dungle");
