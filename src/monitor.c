@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/30 10:39:49 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/05 15:57:17 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	verif_burn_out(int i, long time, t_data *d)
 	{
 		d->stopped = 1;
 		pthread_cond_broadcast(&d->cond);
-		
 		pthread_mutex_lock(&d->log_mutex);
 		printf("%ld %d burned out\n", time, d->coders[i].id);
 		pthread_mutex_unlock(&d->log_mutex);
@@ -47,14 +46,14 @@ void	*monitor_control(void *arg)
 			{
 				i++;
 				compile ++;
-				continue;
+				continue ;
 			}
 			if (verif_burn_out(i, time, d) == 1)
 			{
 				pthread_mutex_unlock(&d->mutex_ask);
 				return (NULL);
 			}
-				
+
 			i++;
 		}
 		if (compile >= d->nbr_coders)

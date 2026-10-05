@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/09/30 19:34:02 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/05 15:56:14 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 int	main(int argc, char **argv)
 {
 	struct s_coder	*coders;
-	// struct s_coder	*chosen;
 	struct s_dungle	*dungles;
 	struct s_data	*data;
 	pthread_t		monitor;
 	int				i;
-	// int				y;
 
 	i = 0;
 
@@ -44,7 +42,7 @@ int	main(int argc, char **argv)
 		write(2, "ERROR: data structure can't be initialised\n", 44);
 		return (0);
 	}
-	
+
 	// TEST ARGV
 	// i = 0;
 	// while (i < atoi(argv[1]))
@@ -80,11 +78,11 @@ int	main(int argc, char **argv)
 	create_threads(data);
 	pthread_create(&monitor, NULL, &monitor_control, data);
 	pthread_join(monitor, NULL);
-	 while (i < data->nbr_coders)
-    {
-        pthread_join(data->coders[i].thread, NULL);
-        i++;
-    }
+	while (i < data->nbr_coders)
+	{
+		pthread_join(data->coders[i].thread, NULL);
+		i++;
+	}
 	pthread_mutex_destroy(&data->log_mutex);
 	pthread_mutex_destroy(&data->mutex_ask);
 	pthread_cond_destroy(&data->cond);

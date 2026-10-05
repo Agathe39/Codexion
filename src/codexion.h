@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   codexion.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/30 19:48:06 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/05 15:55:04 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
 struct s_data	*recup_data(char **arg, struct s_coder **coder,
 					struct s_dungle **dungle);
-struct s_coder  *algorithm(struct s_data *data);
-void    		create_threads(struct s_data *data);
-void    		*coder_routine(void *arg);
-void    		delete_ask(struct s_coder *coder, struct s_data *data);
-void    		take_dungles(struct s_coder *coder, struct s_data *data);
-void    		let_dungles(struct s_coder *coder, struct s_data *data);
+struct s_coder	*algorithm(struct s_data *data);
+void			create_threads(struct s_data *data);
+void			*coder_routine(void *arg);
+void			delete_ask(struct s_coder *coder, struct s_data *data);
+void			take_dungles(struct s_coder *coder, struct s_data *data);
+void			let_dungles(struct s_coder *coder, struct s_data *data);
 void			ft_sleep_ms(long ms);
 
 #endif
