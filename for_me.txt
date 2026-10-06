@@ -139,3 +139,4 @@ Prochain point:
       - si demande acceptée -> compile
       - debug
       - refactor
+   - proteger la creation des threads

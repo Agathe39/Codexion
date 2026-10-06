@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/30 19:50:54 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/05 16:37:19 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
 
 struct s_heap	*creat_heap(int nbr_coders)
 {
@@ -24,17 +23,27 @@ struct s_heap	*creat_heap(int nbr_coders)
 	if (!heap->asks)
 		return (NULL);
 	heap->size = 0;
-
 	return (heap);
+}
+
+void	init_data_coders(struct s_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_coders)
+	{
+		data->coders[i].data = data;
+		data->coders[i].last_compile_start = calculate_time(data);
+		i++;
+	}
 }
 
 struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	struct s_dungle **dungle)
 {
 	struct s_data	*data;
-	int				i;
 
-	i = 0;
 	data = malloc(sizeof(struct s_data) * 1);
 	if (!data)
 		return (NULL);
@@ -54,18 +63,8 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	pthread_mutex_init(&data->mutex_ask, NULL);
 	pthread_cond_init(&data->cond, NULL);
 	data->algo_choice = arg[8];
-	while (i < data->nbr_coders)
-	{
-		data->coders[i].data = data;
-		data->coders[i].last_compile_start = calculate_time(data);
-		i++;
-	}
+	init_data_coders(data);
 	return (data);
-}
-
-long	calculate_time(struct s_data *data)
-{
-	return (now_ms() - data->start_time);
 }
 
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles)
