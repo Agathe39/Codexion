@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/09/30 19:48:06 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/02 16:59:53 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_dungle
 
 typedef struct s_data
 {
+	long			start_time;
 	struct s_coder	*coders;
 	t_dungle		*dungles;
 	t_heap			*heap;
@@ -50,7 +51,6 @@ typedef struct s_data
 	long			time_to_refactor;
 	int				nbr_compilation_required;
 	long			dungle_cooldown;
-	long			start_time;
 	int				stopped;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	mutex_ask;
