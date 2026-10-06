@@ -6,12 +6,17 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 16:40:17 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:28:20 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
+
+void	clean_up()
+{
+	return ;
+}
 void	let_dungles(struct s_coder *coder, struct s_data *data)
 {
 	ft_sleep_ms(data->dungle_cooldown);

@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/10/05 16:41:25 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:42:46 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,33 @@ int	main(int argc, char **argv)
 	if (dungles == NULL)
 	{
 		write(2, "ERROR: dungles structure can't be initialised\n", 47);
+		clean_up(coders, dungles, data, monitor);
 		return (0);
 	}
 	coders = create_coder(atoi(argv[1]), dungles);
 	if (coders == NULL)
 	{
 		write(2, "ERROR: coders structure can't be initialised\n", 46);
+		clean_up(coders, dungles, data, monitor);
 		return (0);
 	}
 	data = recup_data(argv, &coders, &dungles);
 	if (data == NULL)
 	{
 		write(2, "ERROR: data structure can't be initialised\n", 44);
+		clean_up(coders, dungles, data, monitor);
 		return (0);
 	}
+
 	create_threads(data);
-	pthread_create(&monitor, NULL, &monitor_control, data);
+
+	if (pthread_create(&monitor, NULL, &monitor_control, data) != 0)
+	{
+		clean_up(coders, dungles, data, monitor);
+		return (0);
+	}
+
+
 	pthread_join(monitor, NULL);
 	while (i < data->nbr_coders)
 	{

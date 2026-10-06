@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 16:40:51 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:30:27 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	verif_burn_out(int i, long time, t_data *d)
 	return (0);
 }
 
-void	*monitor_control(void *arg)
+int	*monitor_control(void *arg)
 {
 	t_data		*d;
 	int			i;
@@ -51,7 +51,7 @@ void	*monitor_control(void *arg)
 			if (verif_burn_out(i, time, d) == 1)
 			{
 				pthread_mutex_unlock(&d->mutex_ask);
-				return (NULL);
+				return (1);
 			}
 			i++;
 		}
@@ -60,10 +60,10 @@ void	*monitor_control(void *arg)
 			d->stopped = 1;
 			pthread_cond_broadcast(&d->cond);
 			pthread_mutex_unlock(&d->mutex_ask);
-			return (NULL);
+			return (1);
 		}
 		pthread_mutex_unlock(&d->mutex_ask);
 		ft_sleep_ms(1);
 	}
-	return (NULL);
+	return (0);
 }
