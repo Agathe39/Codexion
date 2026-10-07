@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/06 16:07:40 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/07 11:29:26 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ long			now_ms(void);
 void			ft_sleep_ms(long ms);
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
-int				*monitor_control(void *arg);
+void			*monitor_control(void *arg);
 struct s_data	*recup_data(char **arg, struct s_coder **coder,
 					struct s_dungle **dungle);
 struct s_coder	*algorithm(struct s_data *data);
