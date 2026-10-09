@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/07 11:29:26 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/09 09:19:03 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_dungle
 
 typedef struct s_data
 {
+	int				nbr_threads;
+	int				monitor_created;
+	int				mutex_init;
 	long			start_time;
 	struct s_coder	*coders;
 	t_dungle		*dungles;
@@ -52,6 +55,7 @@ typedef struct s_data
 	int				nbr_compilation_required;
 	long			dungle_cooldown;
 	int				stopped;
+	pthread_t		monitor;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	mutex_ask;
 	pthread_cond_t	cond;
@@ -76,13 +80,14 @@ void			ft_sleep_ms(long ms);
 struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
-struct s_data	*recup_data(char **arg, struct s_coder **coder,
-					struct s_dungle **dungle);
+struct s_data	*recup_data(struct s_data *data, char **arg);
+int				create_thread_mutex(struct s_data *data);
 struct s_coder	*algorithm(struct s_data *data);
-void			create_threads(struct s_data *data);
+int				create_threads(struct s_data *data);
 void			*coder_routine(void *arg);
 void			delete_ask(struct s_coder *coder, struct s_data *data);
 void			take_dungles(struct s_coder *coder, struct s_data *data);
 void			let_dungles(struct s_coder *coder, struct s_data *data);
+void			clean_up(struct s_data *data);
 
 #endif

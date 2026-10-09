@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 16:37:19 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/09 09:14:45 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ struct s_heap	*creat_heap(int nbr_coders)
 
 	heap = malloc(sizeof(struct s_heap) * 1);
 	if (!heap)
+	{
+		free(heap);
 		return (NULL);
+	}
 	heap->asks = malloc(sizeof(struct s_ask) * nbr_coders);
 	if (!heap->asks)
+	{
+		free(heap);
 		return (NULL);
+	}
 	heap->size = 0;
 	return (heap);
 }
@@ -39,18 +45,30 @@ void	init_data_coders(struct s_data *data)
 	}
 }
 
-struct s_data	*recup_data(char **arg, struct s_coder **coder,
-	struct s_dungle **dungle)
+struct s_data	*recup_data(struct s_data *data, char **arg)
 {
-	struct s_data	*data;
-
-	data = malloc(sizeof(struct s_data) * 1);
-	if (!data)
-		return (NULL);
+	data->nbr_threads = 0;
+	data->monitor_created = 0;
+	data->mutex_init = 0;
 	data->start_time = now_ms();
-	data->coders = *coder;
-	data->dungles = *dungle;
+	data->dungles = create_dungle(atoi(arg[1]));
+	if (!data->dungles)
+	{
+		clean_up(data);
+		return (NULL);
+	}
+	data->coders = create_coder(atoi(arg[1]), data->dungles);
+	if (!data->coders)
+	{
+		clean_up(data);
+		return (NULL);
+	}
 	data->heap = creat_heap(atoi(arg[1]));
+	if (!data->heap)
+	{
+		clean_up(data);
+		return (NULL);
+	}
 	data->nbr_coders = atoi(arg[1]);
 	data->time_to_burnout = atoi(arg[2]);
 	data->time_to_compile = atoi(arg[3]);
@@ -59,11 +77,13 @@ struct s_data	*recup_data(char **arg, struct s_coder **coder,
 	data->nbr_compilation_required = atoi(arg[6]);
 	data->dungle_cooldown = atoi(arg[7]);
 	data->stopped = 0;
-	pthread_mutex_init(&data->log_mutex, NULL);
-	pthread_mutex_init(&data->mutex_ask, NULL);
-	pthread_cond_init(&data->cond, NULL);
 	data->algo_choice = arg[8];
 	init_data_coders(data);
+	if (create_thread_mutex(data) != 0)
+	{
+		clean_up(data);
+		return (NULL);
+	}
 	return (data);
 }
 

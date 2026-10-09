@@ -4,7 +4,8 @@
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread
 C_FILES = src/main.c src/parsing.c src/initialisation.c src/time.c \
-		src/monitor.c src/algorithm.c src/routine.c src/utils.c src/thread.c \
+		src/monitor.c src/algorithm.c src/routine.c src/routine_utils.c \
+		src/thread.c src/clean.c \
 
 ARGS = 4 800 50 50 50 2 10 fifo
 OBJS = $(C_FILES:.c=.o)
