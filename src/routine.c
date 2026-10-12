@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/05 16:39:35 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/12 16:53:08 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,11 @@ void	*coder_routine(void *arg)
 					|| coder->dungle_left->available == 1)
 				|| coder->dungle_left == coder->dungle_right))
 			pthread_cond_wait(&data->cond, &data->mutex_ask);
-		if (data->stopped)
+		if (data->stopped || initiate_steps(data, coder) == 1)
 		{
-			delete_ask(coder, data);
-			pthread_mutex_unlock(&data->mutex_ask);
+			stop(data, coder);
 			return (NULL);
 		}
-		delete_ask(coder, data);
-		take_dungles(coder, data);
-		pthread_mutex_unlock(&data->mutex_ask);
-		compile(coder, data);
-		let_dungles(coder, data);
-		debug(coder, data);
-		refactor(coder, data);
 	}
 	return (NULL);
 }

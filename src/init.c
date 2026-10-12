@@ -1,48 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialisation.c                                   :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/09 09:14:45 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/12 17:36:18 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-struct s_heap	*creat_heap(int nbr_coders)
+int	init_dungles_coders_heap(struct s_data *data, char **arg)
 {
-	struct s_heap	*heap;
-
-	heap = malloc(sizeof(struct s_heap) * 1);
-	if (!heap)
+	data->dungles = create_dungle(atoi(arg[1]));
+	if (!data->dungles)
 	{
-		free(heap);
-		return (NULL);
+		clean_up(data);
+		return (1);
 	}
-	heap->asks = malloc(sizeof(struct s_ask) * nbr_coders);
-	if (!heap->asks)
+	data->coders = create_coder(atoi(arg[1]), data->dungles);
+	if (!data->coders)
 	{
-		free(heap);
-		return (NULL);
+		clean_up(data);
+		return (1);
 	}
-	heap->size = 0;
-	return (heap);
-}
-
-void	init_data_coders(struct s_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->nbr_coders)
+	data->heap = creat_heap(atoi(arg[1]));
+	if (!data->heap)
 	{
-		data->coders[i].data = data;
-		data->coders[i].last_compile_start = calculate_time(data);
-		i++;
+		clean_up(data);
+		return (1);
 	}
+	return (0);
 }
 
 struct s_data	*recup_data(struct s_data *data, char **arg)
@@ -52,32 +42,12 @@ struct s_data	*recup_data(struct s_data *data, char **arg)
 	data->mutex_init = 0;
 	data->start_time = now_ms();
 	data->dungles = create_dungle(atoi(arg[1]));
-	if (!data->dungles)
+	if (init_dungles_coders_heap(data, arg) == 1)
 	{
 		clean_up(data);
 		return (NULL);
 	}
-	data->coders = create_coder(atoi(arg[1]), data->dungles);
-	if (!data->coders)
-	{
-		clean_up(data);
-		return (NULL);
-	}
-	data->heap = creat_heap(atoi(arg[1]));
-	if (!data->heap)
-	{
-		clean_up(data);
-		return (NULL);
-	}
-	data->nbr_coders = atoi(arg[1]);
-	data->time_to_burnout = atoi(arg[2]);
-	data->time_to_compile = atoi(arg[3]);
-	data->time_to_debug = atoi(arg[4]);
-	data->time_to_refactor = atoi(arg[5]);
-	data->nbr_compilation_required = atoi(arg[6]);
-	data->dungle_cooldown = atoi(arg[7]);
-	data->stopped = 0;
-	data->algo_choice = arg[8];
+	init_args(data, arg);
 	init_data_coders(data);
 	if (create_thread_mutex(data) != 0)
 	{

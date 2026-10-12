@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/09 09:19:03 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/12 17:38:13 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,21 @@ struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
 struct s_dungle	*create_dungle(int nbr_dungle);
 void			*monitor_control(void *arg);
 struct s_data	*recup_data(struct s_data *data, char **arg);
+void			init_args(struct s_data *data, char **arg);
+struct s_heap	*creat_heap(int nbr_coders);
+void			init_data_coders(struct s_data *data);
 int				create_thread_mutex(struct s_data *data);
 struct s_coder	*algorithm(struct s_data *data);
 int				create_threads(struct s_data *data);
 void			*coder_routine(void *arg);
 void			delete_ask(struct s_coder *coder, struct s_data *data);
+int				initiate_steps(struct s_data *data, struct s_coder *coder);
+void			compile(struct s_coder *coder, struct s_data *data);
+void			debug(struct s_coder *coder, struct s_data *data);
+void			refactor(struct s_coder *coder, struct s_data *data);
 void			take_dungles(struct s_coder *coder, struct s_data *data);
 void			let_dungles(struct s_coder *coder, struct s_data *data);
+void			stop(struct s_data *data, struct s_coder *coder);
 void			clean_up(struct s_data *data);
 
 #endif

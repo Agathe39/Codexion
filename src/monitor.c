@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/07 11:29:43 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/12 17:09:34 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,44 @@ int	verif_burn_out(int i, long time, t_data *d)
 	return (0);
 }
 
+int	verif_compile_burnout(t_data *d, long int time)
+{
+	int			i;
+	int			compile;
+
+	i = 0;
+	compile = 0;
+	while (i < d->nbr_coders)
+	{
+		if (d->coders[i].nbr_compiles >= d->nbr_compilation_required)
+		{
+			i++;
+			compile ++;
+			continue ;
+		}
+		if (verif_burn_out(i, time, d) == 1)
+			return (1);
+		i++;
+	}
+	return (compile);
+}
+
 void	*monitor_control(void *arg)
 {
 	t_data		*d;
-	int			i;
 	int			compile;
 	long int	time;
 
 	d = (t_data *)arg;
 	while (!d->stopped)
 	{
-		i = 0;
-		compile = 0;
 		time = calculate_time(d);
 		pthread_mutex_lock(&d->mutex_ask);
-		while (i < d->nbr_coders)
+		compile = verif_compile_burnout(d, time);
+		if (compile == 1)
 		{
-			if (d->coders[i].nbr_compiles >= d->nbr_compilation_required)
-			{
-				i++;
-				compile ++;
-				continue ;
-			}
-			if (verif_burn_out(i, time, d) == 1)
-			{
-				pthread_mutex_unlock(&d->mutex_ask);
-				return (NULL);
-			}
-			i++;
+			pthread_mutex_unlock(&d->mutex_ask);
+			return (NULL);
 		}
 		if (compile >= d->nbr_coders)
 		{
@@ -63,7 +73,6 @@ void	*monitor_control(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&d->mutex_ask);
-		ft_sleep_ms(1);
 	}
 	return (NULL);
 }

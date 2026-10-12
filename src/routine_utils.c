@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/09 17:50:12 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/12 17:15:32 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	stop(struct s_data *data, struct s_coder *coder)
+{
+	delete_ask(coder, data);
+	pthread_mutex_unlock(&data->mutex_ask);
+}
+
+int	initiate_steps(struct s_data *data, struct s_coder *coder)
+{
+	delete_ask(coder, data);
+	take_dungles(coder, data);
+	pthread_mutex_unlock(&data->mutex_ask);
+	compile(coder, data);
+	let_dungles(coder, data);
+	if (data->stopped)
+		return (1);
+	debug(coder, data);
+	if (data->stopped)
+		return (1);
+	refactor(coder, data);
+	return (0);
+}
 
 void	let_dungles(struct s_coder *coder, struct s_data *data)
 {

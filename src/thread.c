@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 18:49:28 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/09 17:49:54 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/12 16:56:06 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 int	create_threads(struct s_data *data)
 {
 	int	i;
-	int threads_create;
+	int	threads_create;
 
 	i = 0;
 	threads_create = 0;
 	while (i < data->nbr_coders)
 	{
 		if (pthread_create(&data->coders[i].thread, NULL, &coder_routine,
-			&data->coders[i]) == 0)
-				threads_create += 1;
+				&data->coders[i]) == 0)
+			threads_create += 1;
 		i++;
 	}
 	return (threads_create);
 }
+
 int	create_thread_mutex(struct s_data *data)
 {
 	pthread_mutex_init(&data->log_mutex, NULL);
