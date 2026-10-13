@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 11:21:41 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 17:09:34 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/13 17:26:04 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+int	is_stopped(struct s_data *data)
+{
+	int	res;
+
+	pthread_mutex_lock(&data->mutex_ask);
+	res = data->stopped;
+	pthread_mutex_unlock(&data->mutex_ask);
+	return (res);
+}
 
 int	verif_burn_out(int i, long time, t_data *d)
 {
@@ -48,31 +58,38 @@ int	verif_compile_burnout(t_data *d, long int time)
 	return (compile);
 }
 
+int	monitor_check(t_data *d)
+{
+	int	compile;
+
+	pthread_mutex_lock(&d->mutex_ask);
+	compile = verif_compile_burnout(d, calculate_time(d));
+	if (compile == -1)
+	{
+		pthread_mutex_unlock(&d->mutex_ask);
+		return (1);
+	}
+	if (compile >= d->nbr_coders)
+	{
+		d->stopped = 1;
+		pthread_cond_broadcast(&d->cond);
+		pthread_mutex_unlock(&d->mutex_ask);
+		return (1);
+	}
+	pthread_mutex_unlock(&d->mutex_ask);
+	return (0);
+}
+
 void	*monitor_control(void *arg)
 {
-	t_data		*d;
-	int			compile;
-	long int	time;
+	t_data	*d;
 
 	d = (t_data *)arg;
-	while (!d->stopped)
+	while (!is_stopped(d))
 	{
-		time = calculate_time(d);
-		pthread_mutex_lock(&d->mutex_ask);
-		compile = verif_compile_burnout(d, time);
-		if (compile == 1)
-		{
-			pthread_mutex_unlock(&d->mutex_ask);
+		if (monitor_check(d) == 1)
 			return (NULL);
-		}
-		if (compile >= d->nbr_coders)
-		{
-			d->stopped = 1;
-			pthread_cond_broadcast(&d->cond);
-			pthread_mutex_unlock(&d->mutex_ask);
-			return (NULL);
-		}
-		pthread_mutex_unlock(&d->mutex_ask);
+		usleep(1000);
 	}
 	return (NULL);
 }

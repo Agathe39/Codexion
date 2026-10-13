@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 17:15:32 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/13 17:09:00 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	initiate_steps(struct s_data *data, struct s_coder *coder)
 	if (data->stopped)
 		return (1);
 	debug(coder, data);
-	if (data->stopped)
+	if (is_stopped(data))
 		return (1);
 	refactor(coder, data);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 16:53:08 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/13 17:26:31 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*coder_routine(void *arg)
 
 	coder = (t_coder *)arg;
 	data = coder->data;
-	while (!data->stopped
+	while (!is_stopped(data)
 		&& coder->nbr_compiles < data->nbr_compilation_required)
 	{
 		ask_to_compile(coder, data);
@@ -77,11 +77,13 @@ void	*coder_routine(void *arg)
 					|| coder->dungle_left->available == 1)
 				|| coder->dungle_left == coder->dungle_right))
 			pthread_cond_wait(&data->cond, &data->mutex_ask);
-		if (data->stopped || initiate_steps(data, coder) == 1)
+		if (data->stopped)
 		{
 			stop(data, coder);
 			return (NULL);
 		}
+		if (initiate_steps(data, coder) == 1)
+			return (NULL);
 	}
 	return (NULL);
 }
