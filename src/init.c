@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 17:36:18 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/13 16:57:52 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ struct s_data	*recup_data(struct s_data *data, char **arg)
 	data->monitor_created = 0;
 	data->mutex_init = 0;
 	data->start_time = now_ms();
-	data->dungles = create_dungle(atoi(arg[1]));
 	if (init_dungles_coders_heap(data, arg) == 1)
 	{
 		clean_up(data);
