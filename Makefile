@@ -3,6 +3,8 @@
 
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread
+VALG_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes
+FSAN_FLAGS = -g -fsanitize=thread
 C_FILES = src/main.c src/parsing.c src/init.c src/time.c src/monitor.c \
 		src/algorithm.c src/routine.c src/routine_utils.c \
 		src/thread.c src/clean.c src/init_utils.c
@@ -10,7 +12,7 @@ C_FILES = src/main.c src/parsing.c src/init.c src/time.c src/monitor.c \
 ARGS = 4 500 50 50 50 2 10 fifo
 OBJS = $(C_FILES:.c=.o)
 
-.PHONY: all run clean fclean re help
+.PHONY: all run valgrind helgrind clean fclean re help
 
 all: $(NAME)
 
@@ -23,11 +25,17 @@ run: $(NAME)
 %.o: %.c
 	cc $(FLAGS) -c $< -o $@
 
+valgrind: $(NAME)
+	valgrind $(VALG_FLAGS) ./$(NAME) $(ARGS)
+
+helgrind: $(NAME)
+	valgrind --tool=helgrind ./$(NAME) $(ARGS)
+
 clean:
 	rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(NAME)_tsan
 
 re: fclean all
 
