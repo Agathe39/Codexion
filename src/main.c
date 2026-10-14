@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/10/12 17:11:00 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/14 16:51:39 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	data->coders = NULL;
-	data->dungles = NULL;
+	data->dongles = NULL;
 	data->heap = NULL;
 	if (recup_data(data, argv) == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/13 17:26:31 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/14 16:53:00 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	*coder_routine(void *arg)
 		ask_to_compile(coder, data);
 		pthread_mutex_lock(&data->mutex_ask);
 		while (!data->stopped && (algorithm(data) != coder
-				|| (coder->dungle_right->available == 1
-					|| coder->dungle_left->available == 1)
-				|| coder->dungle_left == coder->dungle_right))
+				|| (coder->dongle_right->available == 1
+					|| coder->dongle_left->available == 1)
+				|| coder->dongle_left == coder->dongle_right))
 			pthread_cond_wait(&data->cond, &data->mutex_ask);
 		if (data->stopped)
 		{

@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/13 17:09:00 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/14 16:52:38 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	stop(struct s_data *data, struct s_coder *coder)
 int	initiate_steps(struct s_data *data, struct s_coder *coder)
 {
 	delete_ask(coder, data);
-	take_dungles(coder, data);
+	take_dongles(coder, data);
 	pthread_mutex_unlock(&data->mutex_ask);
 	compile(coder, data);
-	let_dungles(coder, data);
+	let_dongles(coder, data);
 	if (data->stopped)
 		return (1);
 	debug(coder, data);
@@ -34,25 +34,25 @@ int	initiate_steps(struct s_data *data, struct s_coder *coder)
 	return (0);
 }
 
-void	let_dungles(struct s_coder *coder, struct s_data *data)
+void	let_dongles(struct s_coder *coder, struct s_data *data)
 {
-	ft_sleep_ms(data->dungle_cooldown);
+	ft_sleep_ms(data->dongle_cooldown);
 	pthread_mutex_lock(&data->mutex_ask);
-	coder->dungle_left->available = 0;
-	coder->dungle_right->available = 0;
+	coder->dongle_left->available = 0;
+	coder->dongle_right->available = 0;
 	pthread_cond_broadcast(&data->cond);
 	pthread_mutex_unlock(&data->mutex_ask);
 }
 
-void	take_dungles(struct s_coder *coder, struct s_data *data)
+void	take_dongles(struct s_coder *coder, struct s_data *data)
 {
-	coder->dungle_left->available = 1;
-	coder->dungle_right->available = 1;
+	coder->dongle_left->available = 1;
+	coder->dongle_right->available = 1;
 	pthread_mutex_lock(&data->log_mutex);
 	printf("%ld %d %s\n", calculate_time(data), coder->id,
-		"has taken a dungle");
+		"has taken a dongle");
 	printf("%ld %d %s\n", calculate_time(data), coder->id,
-		"has taken a dungle");
+		"has taken a dongle");
 	pthread_mutex_unlock(&data->log_mutex);
 }
 

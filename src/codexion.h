@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/13 17:05:13 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/14 16:54:24 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct s_heap
 	int		size;
 }	t_heap;
 
-typedef struct s_dungle
+typedef struct s_dongle
 {
 	int	nbr;
 	int	available;
-}	t_dungle;
+}	t_dongle;
 
 typedef struct s_data
 {
@@ -45,7 +45,7 @@ typedef struct s_data
 	int				mutex_init;
 	long			start_time;
 	struct s_coder	*coders;
-	t_dungle		*dungles;
+	t_dongle		*dongles;
 	t_heap			*heap;
 	int				nbr_coders;
 	long			time_to_burnout;
@@ -53,7 +53,7 @@ typedef struct s_data
 	long			time_to_debug;
 	long			time_to_refactor;
 	int				nbr_compilation_required;
-	long			dungle_cooldown;
+	long			dongle_cooldown;
 	int				stopped;
 	pthread_t		monitor;
 	pthread_mutex_t	log_mutex;
@@ -67,8 +67,8 @@ typedef struct s_coder
 	int				id;
 	long int		last_compile_start;
 	int				nbr_compiles;
-	t_dungle		*dungle_right;
-	t_dungle		*dungle_left;
+	t_dongle		*dongle_right;
+	t_dongle		*dongle_left;
 	pthread_t		thread;
 	struct s_data	*data;
 }	t_coder;
@@ -77,8 +77,8 @@ int				parsing(int nbr_arg, char **args);
 long			calculate_time(struct s_data *data);
 long			now_ms(void);
 void			ft_sleep_ms(long ms);
-struct s_coder	*create_coder(int nbr_coder, struct s_dungle *dongles);
-struct s_dungle	*create_dungle(int nbr_dungle);
+struct s_coder	*create_coder(int nbr_coder, struct s_dongle *dongles);
+struct s_dongle	*create_dongle(int nbr_dongle);
 void			*monitor_control(void *arg);
 int				is_stopped(struct s_data *data);
 struct s_data	*recup_data(struct s_data *data, char **arg);
@@ -94,8 +94,8 @@ int				initiate_steps(struct s_data *data, struct s_coder *coder);
 void			compile(struct s_coder *coder, struct s_data *data);
 void			debug(struct s_coder *coder, struct s_data *data);
 void			refactor(struct s_coder *coder, struct s_data *data);
-void			take_dungles(struct s_coder *coder, struct s_data *data);
-void			let_dungles(struct s_coder *coder, struct s_data *data);
+void			take_dongles(struct s_coder *coder, struct s_data *data);
+void			let_dongles(struct s_coder *coder, struct s_data *data);
 void			stop(struct s_data *data, struct s_coder *coder);
 void			clean_up(struct s_data *data);
 

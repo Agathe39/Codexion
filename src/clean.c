@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/09 17:48:49 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 17:14:53 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/14 16:48:30 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	clean_up(struct s_data *data)
 	}
 	if (data->coders)
 		free(data->coders);
-	if (data->dungles)
-		free(data->dungles);
+	if (data->dongles)
+		free(data->dongles);
 	free(data);
 }

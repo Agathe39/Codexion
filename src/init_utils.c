@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/12 17:16:43 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/12 17:37:49 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/14 16:53:50 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_args(struct s_data *data, char **arg)
 	data->time_to_debug = atoi(arg[4]);
 	data->time_to_refactor = atoi(arg[5]);
 	data->nbr_compilation_required = atoi(arg[6]);
-	data->dungle_cooldown = atoi(arg[7]);
+	data->dongle_cooldown = atoi(arg[7]);
 	data->stopped = 0;
 	data->algo_choice = arg[8];
 }
