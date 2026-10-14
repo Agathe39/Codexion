@@ -42,6 +42,8 @@ re: fclean all
 help:
 	echo "\nmake all -> creates *.o files if they don't exist yet, or rebuilds them if outdated, then compiles the program"
 	echo "make run -> execute the program using the latest version of *.o files"
+	echo "make valgrind -> "
+	echo "make helgrind -> "
 	echo "make clean -> delete *.o files"
 	echo "make fclean -> clean + deletes the executable file"
 	echo "make re -> fclean + all\n"
