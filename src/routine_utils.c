@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/14 16:52:38 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/15 16:24:28 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int	initiate_steps(struct s_data *data, struct s_coder *coder)
 
 void	let_dongles(struct s_coder *coder, struct s_data *data)
 {
-	ft_sleep_ms(data->dongle_cooldown);
+	long	release;
+
 	pthread_mutex_lock(&data->mutex_ask);
+	release = calculate_time(data) + data->dongle_cooldown;
 	coder->dongle_left->available = 0;
 	coder->dongle_right->available = 0;
+	coder->dongle_left->cooldown_end = release;
+	coder->dongle_right->cooldown_end = release;
 	pthread_cond_broadcast(&data->cond);
 	pthread_mutex_unlock(&data->mutex_ask);
 }

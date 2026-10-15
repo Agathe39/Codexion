@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/14 16:51:20 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/15 15:52:30 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ struct s_dongle	*create_dongle(int nbr_dongle)
 	{
 		dongles[i - 1].nbr = i;
 		dongles[i - 1].available = 0;
+		dongles[i - 1].cooldown_end = 0;
 		i++;
 	}
 	return (dongles);

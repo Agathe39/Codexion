@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/14 16:53:00 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/15 16:14:58 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	*coder_routine(void *arg)
 		ask_to_compile(coder, data);
 		pthread_mutex_lock(&data->mutex_ask);
 		while (!data->stopped && (algorithm(data) != coder
-				|| (coder->dongle_right->available == 1
-					|| coder->dongle_left->available == 1)
+				|| (!dongle_is_ready(coder->dongle_left, data)
+					|| !dongle_is_ready(coder->dongle_right, data))
 				|| coder->dongle_left == coder->dongle_right))
-			pthread_cond_wait(&data->cond, &data->mutex_ask);
+			cond_wait_until(data, dongle_cooldown_deadline(coder, data));
 		if (data->stopped)
 		{
 			stop(data, coder);

@@ -7,10 +7,10 @@ VALG_FLAGS = --leak-check=full --show-leak-kinds=all --track-origins=yes
 FSAN_FLAGS = -g -fsanitize=thread
 C_FILES = src/main.c src/parsing.c src/init.c src/time.c src/monitor.c \
 		src/algorithm.c src/routine.c src/routine_utils.c \
-		src/thread.c src/clean.c src/init_utils.c
+		src/thread.c src/clean.c src/init_utils.c src/dongle.c
 
 #    Coders	burnout	  compile  debug   refactor  nb compile  cooldown  scheduler
-ARGS = 4     5000      300       300      300         2         50       fifo
+ARGS = 2     5000      300       300      300         2         50       fifo
 OBJS = $(C_FILES:.c=.o)
 
 .PHONY: all run valgrind helgrind clean fclean re help
