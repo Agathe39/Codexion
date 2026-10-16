@@ -1,0 +1,123 @@
+=== RUN: [Medium] High cooldown, fifo -> compare with next line in edf ===
+=== [memcheck] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [800] [fifo]
+---
+115 1 has taken a dongle
+126 1 has taken a dongle
+127 1 is compiling
+225 3 has taken a dongle
+225 3 has taken a dongle
+225 3 is compiling
+334 1 is debugging
+425 3 is debugging
+534 1 is refactoring
+626 3 is refactoring
+1225 4 has taken a dongle
+1225 4 has taken a dongle
+1225 4 is compiling
+1227 2 has taken a dongle
+1227 2 has taken a dongle
+1227 2 is compiling
+1425 4 is debugging
+1427 2 is debugging
+1625 4 is refactoring
+1628 2 is refactoring
+2226 5 has taken a dongle
+2226 5 has taken a dongle
+2226 5 is compiling
+2426 5 is debugging
+2626 5 is refactoring
+3127 1 burned out
+--- [memcheck] return code: 0 ---
+=== [helgrind] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [800] [fifo]
+---
+==2260332== ---Thread-Announcement------------------------------------------
+==2260332== 
+==2260332== Thread #7 was created
+==2260332==    at 0x499FA33: clone (clone.S:76)
+==2260332==    by 0x49A092E: __clone_internal (clone-internal.c:83)
+==2260332==    by 0x490E698: create_thread (pthread_create.c:295)
+==2260332==    by 0x490F1BF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==2260332==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x402886: create_threads (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x402965: create_thread_mutex (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x40193A: recup_data (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x4012F5: main (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332== 
+==2260332== ----------------------------------------------------------------
+==2260332== 
+==2260332== Thread #7: pthread_cond_{signal,broadcast}: dubious: associated lock is not held by any thread
+==2260332==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x490DFEE: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==2260332==    by 0x490DFEE: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==2260332==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x401B0E: cond_wait_until (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x402456: coder_routine (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x490EA82: start_thread (pthread_create.c:442)
+==2260332==    by 0x499FA43: clone (clone.S:100)
+==2260332== 
+==2260332== ---Thread-Announcement------------------------------------------
+==2260332== 
+==2260332== Thread #3 was created
+==2260332==    at 0x499FA33: clone (clone.S:76)
+==2260332==    by 0x49A092E: __clone_internal (clone-internal.c:83)
+==2260332==    by 0x490E698: create_thread (pthread_create.c:295)
+==2260332==    by 0x490F1BF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==2260332==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x402886: create_threads (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x402965: create_thread_mutex (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x40193A: recup_data (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x4012F5: main (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332== 
+==2260332== ----------------------------------------------------------------
+==2260332== 
+==2260332== Thread #3: pthread_cond_{signal,broadcast}: dubious: associated lock is not held by any thread
+==2260332==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x490DFEE: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==2260332==    by 0x490DFEE: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==2260332==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x401B0E: cond_wait_until (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x402456: coder_routine (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260332==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260332==    by 0x490EA82: start_thread (pthread_create.c:442)
+==2260332==    by 0x499FA43: clone (clone.S:100)
+==2260332== 
+14 1 has taken a dongle
+18 1 has taken a dongle
+19 1 is compiling
+220 1 is debugging
+421 1 is refactoring
+1020 2 has taken a dongle
+1020 2 has taken a dongle
+1020 2 is compiling
+1221 2 is debugging
+1421 2 is refactoring
+2021 3 has taken a dongle
+2021 3 has taken a dongle
+2021 3 is compiling
+2221 3 is debugging
+2421 3 is refactoring
+3003 4 burned out
+--- [helgrind] return code: 42 ---
+=== [drd] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [800] [fifo]
+---
+22 1 has taken a dongle
+26 1 has taken a dongle
+27 1 is compiling
+228 1 is debugging
+429 1 is refactoring
+1028 2 has taken a dongle
+1028 2 has taken a dongle
+1028 2 is compiling
+1228 2 is debugging
+1429 2 is refactoring
+2028 3 has taken a dongle
+2028 3 has taken a dongle
+2028 3 is compiling
+2228 3 is debugging
+2428 3 is refactoring
+3003 4 burned out
+--- [drd] return code: 0 ---

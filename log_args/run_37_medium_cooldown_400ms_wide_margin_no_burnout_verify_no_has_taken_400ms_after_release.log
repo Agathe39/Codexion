@@ -1,0 +1,292 @@
+=== RUN: [Medium] Cooldown 400ms, wide margin -> NO burnout, verify no 'has taken' <400ms after release ===
+=== [memcheck] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [400] [fifo]
+---
+121 1 has taken a dongle
+132 1 has taken a dongle
+132 1 is compiling
+336 1 is debugging
+536 1 is refactoring
+736 2 has taken a dongle
+736 2 has taken a dongle
+736 2 is compiling
+737 4 has taken a dongle
+737 4 has taken a dongle
+737 4 is compiling
+937 2 is debugging
+937 4 is debugging
+1137 2 is refactoring
+1137 4 is refactoring
+1337 5 has taken a dongle
+1337 5 has taken a dongle
+1337 5 is compiling
+1337 3 has taken a dongle
+1337 3 has taken a dongle
+1337 3 is compiling
+1537 5 is debugging
+1538 3 is debugging
+1737 5 is refactoring
+1738 3 is refactoring
+1937 1 has taken a dongle
+1937 1 has taken a dongle
+1937 1 is compiling
+2137 1 is debugging
+2337 1 is refactoring
+2537 2 has taken a dongle
+2537 2 has taken a dongle
+2537 2 is compiling
+2537 4 has taken a dongle
+2537 4 has taken a dongle
+2538 4 is compiling
+2737 2 is debugging
+2738 4 is debugging
+2937 2 is refactoring
+2938 4 is refactoring
+3138 5 has taken a dongle
+3138 5 has taken a dongle
+3138 5 is compiling
+3138 3 has taken a dongle
+3138 3 has taken a dongle
+3138 3 is compiling
+3338 5 is debugging
+3338 3 is debugging
+3538 5 is refactoring
+3539 3 is refactoring
+3738 1 has taken a dongle
+3738 1 has taken a dongle
+3738 1 is compiling
+3938 1 is debugging
+4138 1 is refactoring
+4338 2 has taken a dongle
+4338 2 has taken a dongle
+4338 2 is compiling
+4338 4 has taken a dongle
+4339 4 has taken a dongle
+4339 4 is compiling
+4538 2 is debugging
+4539 4 is debugging
+4738 2 is refactoring
+4739 4 is refactoring
+4939 5 has taken a dongle
+4939 5 has taken a dongle
+4939 5 is compiling
+4939 3 has taken a dongle
+4939 3 has taken a dongle
+4939 3 is compiling
+5139 5 is debugging
+5139 3 is debugging
+5339 5 is refactoring
+5339 3 is refactoring
+5539 1 has taken a dongle
+5540 1 has taken a dongle
+5540 1 is compiling
+5740 1 is debugging
+5940 1 is refactoring
+6140 2 has taken a dongle
+6140 2 has taken a dongle
+6140 2 is compiling
+6140 4 has taken a dongle
+6140 4 has taken a dongle
+6140 4 is compiling
+6340 2 is debugging
+6340 4 is debugging
+6540 2 is refactoring
+6540 4 is refactoring
+6741 5 has taken a dongle
+6741 5 has taken a dongle
+6741 5 is compiling
+6742 3 has taken a dongle
+6742 3 has taken a dongle
+6742 3 is compiling
+6941 5 is debugging
+6942 3 is debugging
+7141 5 is refactoring
+7142 3 is refactoring
+7341 1 has taken a dongle
+7341 1 has taken a dongle
+7341 1 is compiling
+7541 1 is debugging
+7742 1 is refactoring
+7941 2 has taken a dongle
+7941 2 has taken a dongle
+7941 2 is compiling
+7941 4 has taken a dongle
+7941 4 has taken a dongle
+7941 4 is compiling
+8141 2 is debugging
+8141 4 is debugging
+8341 2 is refactoring
+8341 4 is refactoring
+8541 5 has taken a dongle
+8541 5 has taken a dongle
+8541 5 is compiling
+8541 3 has taken a dongle
+8541 3 has taken a dongle
+8541 3 is compiling
+8741 5 is debugging
+8742 3 is debugging
+8942 5 is refactoring
+8942 3 is refactoring
+9141 1 has taken a dongle
+9141 1 has taken a dongle
+9141 1 is compiling
+9341 1 is debugging
+9541 1 is refactoring
+9741 2 has taken a dongle
+9742 2 has taken a dongle
+9742 2 is compiling
+9742 4 has taken a dongle
+9742 4 has taken a dongle
+9742 4 is compiling
+9942 2 is debugging
+9942 4 is debugging
+10142 2 is refactoring
+10142 4 is refactoring
+10342 5 has taken a dongle
+10342 5 has taken a dongle
+10342 5 is compiling
+10343 3 has taken a dongle
+10343 3 has taken a dongle
+10343 3 is compiling
+10542 5 is debugging
+10543 3 is debugging
+10743 5 is refactoring
+10743 3 is refactoring
+10942 1 has taken a dongle
+10942 1 has taken a dongle
+10942 1 is compiling
+11142 1 is debugging
+11342 1 is refactoring
+11542 2 has taken a dongle
+11542 2 has taken a dongle
+11543 2 is compiling
+11543 4 has taken a dongle
+11543 4 has taken a dongle
+11543 4 is compiling
+11743 2 is debugging
+11743 4 is debugging
+11943 2 is refactoring
+11943 4 is refactoring
+12143 5 has taken a dongle
+12143 5 has taken a dongle
+12143 5 is compiling
+12144 3 has taken a dongle
+12144 3 has taken a dongle
+12144 3 is compiling
+12343 5 is debugging
+12344 3 is debugging
+12544 5 is refactoring
+12544 3 is refactoring
+12743 1 has taken a dongle
+12743 1 has taken a dongle
+12743 1 is compiling
+12943 1==2259841== 272 bytes in 1 blocks are possibly lost in loss record 5 of 8
+==2259841==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2259841==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==2259841==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==2259841==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==2259841==    by 0x4908774: allocate_stack (allocatestack.c:430)
+==2259841==    by 0x4908774: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==2259841==    by 0x40293A: create_thread_mutex (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841==    by 0x40193A: recup_data (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841==    by 0x4012F5: main (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841== 
+==2259841== 1,360 bytes in 5 blocks are possibly lost in loss record 7 of 8
+==2259841==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2259841==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==2259841==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==2259841==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==2259841==    by 0x4908774: allocate_stack (allocatestack.c:430)
+==2259841==    by 0x4908774: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==2259841==    by 0x402886: create_threads (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841==    by 0x402965: create_thread_mutex (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841==    by 0x40193A: recup_data (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841==    by 0x4012F5: main (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2259841== 
+--- [memcheck] return code: 124 ---
+=== [helgrind] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [400] [fifo]
+---
+==2260054== ---Thread-Announcement------------------------------------------
+==2260054== 
+==2260054== Thread #7 was created
+==2260054==    at 0x499FA33: clone (clone.S:76)
+==2260054==    by 0x49A092E: __clone_internal (clone-internal.c:83)
+==2260054==    by 0x490E698: create_thread (pthread_create.c:295)
+==2260054==    by 0x490F1BF: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==2260054==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260054==    by 0x402886: create_threads (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054==    by 0x402965: create_thread_mutex (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054==    by 0x40193A: recup_data (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054==    by 0x4012F5: main (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054== 
+==2260054== ----------------------------------------------------------------
+==2260054== 
+==2260054== Thread #7: pthread_cond_{signal,broadcast}: dubious: associated lock is not held by any thread
+==2260054==    at 0x48513D6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260054==    by 0x490DFEE: __pthread_cond_wait_common (pthread_cond_wait.c:516)
+==2260054==    by 0x490DFEE: pthread_cond_timedwait@@GLIBC_2.3.2 (pthread_cond_wait.c:652)
+==2260054==    by 0x48545D4: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260054==    by 0x401B0E: cond_wait_until (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054==    by 0x402456: coder_routine (in /home/aeuvrard/Tronc_commum/Codexion/codexion)
+==2260054==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==2260054==    by 0x490EA82: start_thread (pthread_create.c:442)
+==2260054==    by 0x499FA43: clone (clone.S:100)
+==2260054== 
+13 1 has taken a dongle
+17 1 has taken a dongle
+17 1 is compiling
+219 1 is debugging
+419 1 is refactoring
+619 2 has taken a dongle
+619 2 has taken a dongle
+619 2 is compiling
+820 2 is debugging
+1021 2 is refactoring
+1221 3 has taken a dongle
+1221 3 has taken a dongle
+1221 3 is compiling
+1421 3 is debugging
+1621 3 is refactoring
+1821 4 has taken a dongle
+1821 4 has taken a dongle
+1821 4 is compiling
+2022 4 is debugging
+2222 4 is refactoring
+2422 5 has taken a dongle
+2423 5 has taken a dongle
+2423 5 is compiling
+2623 5 is debugging
+2823 5 is refactoring
+3018 1 burned out
+--- [helgrind] return code: 42 ---
+=== [drd] ===
+Command: ./codexion [5] [3000] [200] [200] [200] [10] [400] [fifo]
+---
+22 1 has taken a dongle
+27 1 has taken a dongle
+27 1 is compiling
+231 1 is debugging
+432 1 is refactoring
+629 2 has taken a dongle
+630 2 has taken a dongle
+630 2 is compiling
+830 2 is debugging
+1030 2 is refactoring
+1230 3 has taken a dongle
+1230 3 has taken a dongle
+1231 3 is compiling
+1431 3 is debugging
+1631 3 is refactoring
+1831 4 has taken a dongle
+1831 4 has taken a dongle
+1831 4 is compiling
+2031 4 is debugging
+2232 4 is refactoring
+2431 5 has taken a dongle
+2431 5 has taken a dongle
+2431 5 is compiling
+2631 5 is debugging
+2831 5 is refactoring
+3027 1 burned out
+--- [drd] return code: 0 ---
