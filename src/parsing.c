@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:13:01 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/15 15:22:57 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/17 14:26:04 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_int(char **args)
 		y = -1;
 		while (args[i][++y] != '\0')
 		{
-			if (ft_len(args[i]) == 1 && args[i][0] == '0')
+			if (ft_len(args[i]) == 1 && args[i][0] == '0' && i != 7)
 			{
 				write(2, "\nError: integer must be superior to 0\n\n", 40);
 				return (0);
