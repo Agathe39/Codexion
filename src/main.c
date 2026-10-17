@@ -6,7 +6,7 @@
 /*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/15 15:26:50 by aeuvrard          #+#    #+#             */
-/*   Updated: 2026/10/16 10:20:07 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/17 16:00:43 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	struct s_data	*data;
 
 	if (parsing(argc, argv) == 0)
-		return (1);
+		return (0);
 	data = malloc(sizeof(struct s_data) * 1);
 	if (!data)
 	{

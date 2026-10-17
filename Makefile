@@ -1,5 +1,5 @@
 
-.SILENT :
+.SILENT:
 
 NAME = codexion
 FLAGS = -Wall -Wextra -Werror -pthread
@@ -10,7 +10,7 @@ C_FILES = src/main.c src/parsing.c src/init.c src/time.c src/monitor.c \
 		src/thread.c src/clean.c src/init_utils.c src/dongle.c
 
 #    Coders	burnout	  compile  debug   refactor  nb compile  cooldown  scheduler
-ARGS = 2     100      20        20      20         2         0      	edf
+ARGS = 2 300 20 20 20 2 0 edf
 OBJS = $(C_FILES:.c=.o)
 
 .PHONY: all run valgrind helgrind clean fclean re help

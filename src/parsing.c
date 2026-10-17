@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:13:01 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/17 14:26:04 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/17 16:02:38 by aeuvrard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,33 @@ int	valid_scheduler(char **args)
 	{
 		write(2, "\nError: last argument must be 'fifo' or 'edf'\n\n", 48);
 		return (0);
+	}
+	return (1);
+}
+
+int	verif_nbr(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < 7)
+	{
+		if (ft_len(args[i]) > 5)
+		{
+			write(2, "\nError: Only numbers with fewer than six digits are "
+				"accepted.\n\n", 65);
+			return (0);
+		}
+		if (i == 1 && atoi(args[i]) > 250)
+		{
+			write(2, "\nError: coder number must be less than 200\n\n", 45);
+			return (0);
+		}
+		if (i == 2 && atoi(args[i]) > 65000)
+		{
+			write(2, "\nError: burnout number must be less than 65000\n\n", 59);
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -56,6 +83,8 @@ int	is_int(char **args)
 			}
 		}
 	}
+	if (verif_nbr(args) == 0)
+		return (0);
 	return (1);
 }
 
