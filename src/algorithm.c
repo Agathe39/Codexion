@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 16:16:26 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/17 13:44:48 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/17 14:30:42 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int	verif_diponibility_dongles(int coder_id, struct s_data *data)
 	{
 		if (data->coders[i].id == coder_id)
 		{
-			// if ((data->coders[i].dongle_left->available == 0 && data->coders[i].dongle_left->cooldown_end >= calculate_time(data))
-			//  && (data->coders[i].dongle_right->available == 0 && data->coders[i].dongle_right->cooldown_end >= calculate_time(data)))
-			if (dongle_is_ready(data->coders[i].dongle_left, data) == 1 && dongle_is_ready(data->coders[i].dongle_right, data) == 1)
+			if (dongle_is_ready(data->coders[i].dongle_left, data) == 1
+				&& dongle_is_ready(data->coders[i].dongle_right, data) == 1)
 				return (0);
 			else
 				return (1);
@@ -81,8 +80,8 @@ int	use_fifo(struct s_data *data)
 		return (-1);
 	best = -1;
 	min_arrival = data->heap->asks[0].arrival_time;
-	i = 0;
-	while (i < data->heap->size)
+	i = -1;
+	while (i++ < data->heap->size)
 	{
 		if (verif_diponibility_dongles(data->heap->asks[i].coder_id, data) == 0)
 		{
@@ -94,7 +93,6 @@ int	use_fifo(struct s_data *data)
 				best = i;
 			}
 		}
-		i++;
 	}
 	if (best == -1)
 		return (best);
