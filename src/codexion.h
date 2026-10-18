@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:44:00 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/15 16:26:41 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/18 16:04:00 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ long			dongle_cooldown_deadline(struct s_coder *coder,
 					struct s_data *data);
 void			debug(struct s_coder *coder, struct s_data *data);
 void			refactor(struct s_coder *coder, struct s_data *data);
-void			take_dongles(struct s_coder *coder, struct s_data *data);
+void			take_dongles(struct s_coder *coder);
 void			let_dongles(struct s_coder *coder, struct s_data *data);
 void			stop(struct s_data *data, struct s_coder *coder);
 void			clean_up(struct s_data *data);

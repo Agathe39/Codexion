@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 16:16:26 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/17 14:30:42 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/18 16:12:46 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,23 @@ int	use_edf(struct s_data *data)
 
 	if (data->heap->size <= 0)
 		return (-1);
-	best = 0;
+	best = -1;
 	min_deadline = data->heap->asks[0].deadline;
-	i = 1;
+	i = 0;
 	while (i < data->heap->size)
 	{
-		if (data->heap->asks[i].deadline < min_deadline)
+		if (verif_diponibility_dongles(data->heap->asks[i].coder_id, data) == 0)
 		{
-			min_deadline = data->heap->asks[i].deadline;
-			best = i;
+			if (best == -1 || data->heap->asks[i].deadline < min_deadline)
+			{
+				min_deadline = data->heap->asks[i].deadline;
+				best = i;
+			}
 		}
 		i++;
 	}
+	if (best == -1)
+		return (-1);
 	return (data->heap->asks[best].coder_id);
 }
 
@@ -74,25 +79,21 @@ int	use_fifo(struct s_data *data)
 {
 	int		i;
 	int		best;
-	long	min_arrival;
 
 	if (data->heap->size <= 0)
 		return (-1);
 	best = -1;
-	min_arrival = data->heap->asks[0].arrival_time;
-	i = -1;
-	while (i++ < data->heap->size)
+	i = 0;
+	while (i < data->heap->size)
 	{
 		if (verif_diponibility_dongles(data->heap->asks[i].coder_id, data) == 0)
 		{
-			if (best == -1)
+			if (best == -1
+				|| data->heap->asks[i].arrival_time
+				< data->heap->asks[best].arrival_time)
 				best = i;
-			if (data->heap->asks[i].arrival_time < min_arrival)
-			{
-				min_arrival = data->heap->asks[i].arrival_time;
-				best = i;
-			}
 		}
+		i++;
 	}
 	if (best == -1)
 		return (best);

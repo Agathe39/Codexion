@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 16:59:40 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/15 16:24:28 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/18 16:14:12 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	stop(struct s_data *data, struct s_coder *coder)
 int	initiate_steps(struct s_data *data, struct s_coder *coder)
 {
 	delete_ask(coder, data);
-	take_dongles(coder, data);
+	take_dongles(coder);
 	pthread_mutex_unlock(&data->mutex_ask);
 	compile(coder, data);
 	let_dongles(coder, data);
-	if (data->stopped)
+	if (is_stopped(data))
 		return (1);
 	debug(coder, data);
 	if (is_stopped(data))
@@ -48,16 +48,10 @@ void	let_dongles(struct s_coder *coder, struct s_data *data)
 	pthread_mutex_unlock(&data->mutex_ask);
 }
 
-void	take_dongles(struct s_coder *coder, struct s_data *data)
+void	take_dongles(struct s_coder *coder)
 {
 	coder->dongle_left->available = 1;
 	coder->dongle_right->available = 1;
-	pthread_mutex_lock(&data->log_mutex);
-	printf("%ld %d %s\n", calculate_time(data), coder->id,
-		"has taken a dongle");
-	printf("%ld %d %s\n", calculate_time(data), coder->id,
-		"has taken a dongle");
-	pthread_mutex_unlock(&data->log_mutex);
 }
 
 void	delete_ask(struct s_coder *coder, struct s_data *data)

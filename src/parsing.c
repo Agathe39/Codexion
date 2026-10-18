@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeuvrard <aeuvrard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 17:13:01 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/17 16:02:38 by aeuvrard         ###   ########.fr       */
+/*   Updated: 2026/10/18 16:05:33 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	verif_nbr(char **args)
 		if (ft_len(args[i]) > 5)
 		{
 			write(2, "\nError: Only numbers with fewer than six digits are "
-				"accepted.\n\n", 65);
+				"accepted.\n\n", 64);
 			return (0);
 		}
 		if (i == 1 && atoi(args[i]) > 250)
@@ -52,7 +52,7 @@ int	verif_nbr(char **args)
 		}
 		if (i == 2 && atoi(args[i]) > 65000)
 		{
-			write(2, "\nError: burnout number must be less than 65000\n\n", 59);
+			write(2, "\nError: burnout number must be less than 65000\n\n", 49);
 			return (0);
 		}
 	}

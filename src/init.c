@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 16:25:25 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/15 15:52:30 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/18 15:43:44 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,13 @@ int	init_dongles_coders_heap(struct s_data *data, char **arg)
 {
 	data->dongles = create_dongle(atoi(arg[1]));
 	if (!data->dongles)
-	{
-		clean_up(data);
 		return (1);
-	}
 	data->coders = create_coder(atoi(arg[1]), data->dongles);
 	if (!data->coders)
-	{
-		clean_up(data);
 		return (1);
-	}
 	data->heap = creat_heap(atoi(arg[1]));
 	if (!data->heap)
-	{
-		clean_up(data);
 		return (1);
-	}
 	return (0);
 }
 

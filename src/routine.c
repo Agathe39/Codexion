@@ -6,7 +6,7 @@
 /*   By: agathe <agathe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 18:30:48 by agathe            #+#    #+#             */
-/*   Updated: 2026/10/15 16:14:58 by agathe           ###   ########.fr       */
+/*   Updated: 2026/10/18 16:02:23 by agathe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	compile(struct s_coder *coder, struct s_data *data)
 
 	pthread_mutex_lock(&data->log_mutex);
 	time = calculate_time(data);
+	printf("%ld %d %s\n", calculate_time(data), coder->id,
+		"has taken a dongle");
+	printf("%ld %d %s\n", calculate_time(data), coder->id,
+		"has taken a dongle");
 	printf("%ld %d %s\n", time, coder->id, "is compiling");
 	pthread_mutex_unlock(&data->log_mutex);
 	pthread_mutex_lock(&data->mutex_ask);
